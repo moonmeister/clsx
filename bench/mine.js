@@ -27,7 +27,7 @@ exports.original = function classNames(...args) {
 }
 
 function append(acc, arg) {
-  return acc += arg + " "
+  return acc + arg + ' '
 }
 
 exports.noJoin = function classNames(...args) {
@@ -62,16 +62,16 @@ exports.noReduce = function classNames(...args) {
     if (!arg) continue;
     const argType = typeof arg;
     if (argType === "string" || argType === 'number') {
-      append(classes, arg);
+      classes = append(classes, arg);
     } else if (Array.isArray(arg) && arg.length) {
       const inner = classNames(...arg);
-      if (inner) append(classes, inner);
+      if (inner) classes = append(classes, inner);
     } else if (argType === "object") {
       if (arg.toString !== Object.prototype.toString) {
         append(classes, arg.toString());
       } else {
         for (const [key, value] of Object.entries(arg)) {
-          if (value) append(classes, key);
+          if (value) classes = append(classes, key);
         }
       }
     }
@@ -87,13 +87,13 @@ exports.noObjCheck = function classNames(...args) {
     if (!arg) continue;
     const argType = typeof arg;
     if (argType === "string" || argType === 'number') {
-      append(classes, arg);
+      classes = append(classes, arg);
     } else if (Array.isArray(arg) && arg.length) {
       const inner = classNames(...arg);
-      if (inner) append(classes, inner);
+      if (inner) classes = append(classes, inner);
     } else if (argType === "object") {
       for (const [key, value] of Object.entries(arg)) {
-        if (value) append(classes, key);
+        if (value) classes = append(classes, key);
       }
     }
   }
